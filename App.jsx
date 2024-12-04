@@ -2,9 +2,10 @@ import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
-  View,
   TouchableOpacity,
   Dimensions,
+  ToastAndroid,
+  SafeAreaView,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import QRScanner from './QRScanner';
@@ -21,27 +22,33 @@ const App = () => {
   };
 
   const onQrRead = qrtext => {
-    setQrCode(qrtext);
+    if (qrtext !== null) {
+      setQrCode(qrtext);
+      ToastAndroid.show(qrtext, ToastAndroid.LONG);
+    }
     setShowQR(false);
   };
 
   return (
-    <View style={styles.page}>
-      {qrCode ? (
-        <Text style={{fontSize: 16, color: 'black'}}>
-          {'QR Value \n' + qrCode}
-        </Text>
-      ) : null}
-      <Ionicons
-        name={'scan-circle-outline'}
-        size={qrCode ? dWidth * 0.4 : dWidth * 0.75}
-        color={colour}
-      />
+    <SafeAreaView style={styles.page}>
+      <Text
+        style={{
+          fontSize: dWidth * 0.1,
+          color: 'black',
+          fontWeight: 'bold',
+          flex: 0.5,
+        }}>
+        VistaMag
+      </Text>
       <TouchableOpacity onPress={() => openQRscanner()} style={styles.btn}>
-        <Text style={{color: colour}}>Scan QR</Text>
+        <Ionicons
+          name={'scan-circle-outline'}
+          size={qrCode ? dWidth * 0.4 : dWidth * 0.75}
+          color={colour}
+        />
       </TouchableOpacity>
       {showQR ? <QRScanner onRead={onQrRead} /> : null}
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -52,16 +59,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
   },
   btn: {
-    backgroundColor: 'transparent',
     alignItems: 'center',
-    borderRadius: 10,
-    paddingVertical: '3%',
-    width: '50%',
-    borderWidth: 2,
-    borderColor: colour,
+    flex: 1,
   },
   btnText: {
     color: colour,

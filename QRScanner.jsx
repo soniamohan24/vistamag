@@ -21,7 +21,6 @@ const QRScanner = props => {
   });
 
   useEffect(() => {
-    // exception case
     setRefresh(!refresh);
   }, [device, hasPermission]);
 
@@ -33,22 +32,10 @@ const QRScanner = props => {
     };
 
     requestCameraPermission();
-
-    //if it is idle for 15 secs, it will be closed
     setTimeout(() => {
       props.onRead(null);
     }, 15 * 1000);
   }, []);
-
-  if (device == null || !hasPermission) {
-    return (
-      <View style={styles.page2}>
-        <Text style={{backgroundColor: 'white'}}>
-          Camera not available or not permitted
-        </Text>
-      </View>
-    );
-  }
 
   return (
     <View style={styles.page2}>
