@@ -16,6 +16,8 @@ const QRScanner = props => {
     onCodeScanned: codes => {
       console.log('onCodeScanned ', codes);
       console.log('onCodeScanned value', codes[0].value);
+      navigation.goBack();
+      navigation.setParams({ returnedMessage: codes[0].value });
       props.onRead(codes[0].value);
     },
   });
@@ -93,7 +95,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    padding: '2%',
+    // padding: '%',
     height: '5%',
     width: '100%',
     alignItems: 'flex-start',
@@ -105,7 +107,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    padding: '10%',
+    // padding: '10%',
     height: '20%',
     width: '100%',
     alignItems: 'center',

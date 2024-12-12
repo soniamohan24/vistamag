@@ -113,6 +113,9 @@ dependencies {
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
+        implementation project(':react-native-vector-icons')
+        implementation project(':react-native-vision-camera')
+
     } else {
         implementation jscFlavor
     }
